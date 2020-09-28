@@ -6,7 +6,7 @@ public class Shooter extends SubsystemBase{
     private final WPI_TalonFX rightTalon;
     private final WPI_VictorSRX acceleratorVictor;
 
-    Scanner scan = new Scanner(Scanner.in);
+    private static final double acceleratorSpeed = 0.8;
 
     public double shooterSpeed = 1;
 
@@ -17,7 +17,7 @@ public class Shooter extends SubsystemBase{
     }
 
    public void allOn(){
-       shooterOn();
+       shooterOn(shooterSpeed);
        acceleratorOn();
    }
 
@@ -27,13 +27,14 @@ public class Shooter extends SubsystemBase{
    }
 
    public void shooterOn(double speed){
-        double shooterSpeed = new speed;
-        leftTalon.set(-1*SHOOTER_SPEED);
-        rightTalon.set(SHOOTER_SPEED);
+        shooterSpeed = speed;
+        leftTalon.set(-1*shooterSpeed);
+        rightTalon.set(shooterSpeed);
    }
 
    public void shooterOff(){
-       group.set(0);
+       leftTalon.set(0);
+       rightTalon.set(0);
    }
 
    public void acceleratorOn(){
@@ -45,7 +46,7 @@ public class Shooter extends SubsystemBase{
    }
 
    public void setSpeed(double speed){
-        double speed = scan.nextDouble();
+        shooterSpeed = speed;
    }
 
    public int getLeftPosition(){

@@ -3,49 +3,42 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climb extends SubsystemBase {
 
-    private final WPI_VictorSPX rightVictor;
-    private final WPI_VictorSPX leftVictor;
+    private final WPI_VictorSPX extendVictor;
+    private final WPI_VictorSPX retractVictor;
 
-    private final SpeedControllerGroup primaryGroup;
-
-    private final DifferentialDrive differentialDrive;
-
-    private final extend = 1;
-    private final retract = .6;
+    private final double EXTEND_SPEED = 1;
+    private final double RETRACT_SPEED = .6;
 
     public Climb() {
-        rightVictor = MotorFactory.makeVictorSPX(Constants.CLIMB_RIGHT_VICTOR, "climb right victor");
-        leftVictor = MotorFactory.makeVictorSPX(Constants.CLIMB_LEFT_VICTOR, "climb left victor");
-
-        primaryGroup = new SpeedControllerGroup(rightVictor, leftVictor);
-
-        differentialDrive = new DifferentialDrive(primaryGroup);
+        extendVictor = MotorFactory.makeVictorSPX(Constants.CLIMB_RIGHT_VICTOR, "climb right victor");
+        retractVictor = MotorFactory.makeVictorSPX(Constants.CLIMB_LEFT_VICTOR, "climb left victor");
     }
 
     public extend(){
-        group.set(EXTEND_SPEED);
+        extendVictor.set(EXTEND_SPEED);
     }
 
     public extendReverse(){
-        group.set(-EXTEND_SPEED);
+        extendVictor.set(-EXTEND_SPEED);
     }
 
     public retract(){
-        group.set(-RETRACT_SPEED);
+        retractVictor.set(-RETRACT_SPEED);
     }
 
     public stop(){
-        group.set(0);
+        extendVictor.set(0);
+        retractVictor.set(0);
     }
 
     public setCoastMode(){
-        rightVictor.setNeutralMode(NeutralMode.Coast);
-        leftVictor.setNeutralMode(NeutralMode.Coast);
+        extendVictor.setNeutralMode(NeutralMode.Coast);
+        retractVictor.setNeutralMode(NeutralMode.Coast);
     }
 
     public setBrakeMode(){
-        rightVictor.setNeutralMode(NeutralMode.Brake);
-        leftVictor.setNeutralMode(NeutralMode.Brake);
+        extendVictor.setNeutralMode(NeutralMode.Brake);
+        retractVictor.setNeutralMode(NeutralMode.Brake);
     }
 
 }

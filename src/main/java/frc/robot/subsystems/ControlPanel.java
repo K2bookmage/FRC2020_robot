@@ -5,7 +5,7 @@ public class ControlPanel extends SubsystemBase{
     private final Solenoid solenoid;
     private final WPI_TalonSRX mainTalon;
 
-    private final turnSpeed = 0.4;
+    private final double TURN_SPEED = 0.4;
 
     public ControlPanel(){
         solenoid = new Solenoid(Constants.CONTROLPANEL_PCM_NODE, Constants, 0);
@@ -13,19 +13,19 @@ public class ControlPanel extends SubsystemBase{
 }
 
     public turn(){
-        group.set(TURN_SPEED);
+        mainTalon.set(TURN_SPEED);
     }
 
     public turnStop(){
-        group.set(0);
+        mainTalon.set(0);
     }
 
     public extend(){
-        group.set(true);
+        solenoid.set(true);
     }
 
     public retract(){
-        group.set(false);
+        solenoid.set(false);
     }
 
     public getPosition(){

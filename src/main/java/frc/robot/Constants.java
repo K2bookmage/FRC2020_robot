@@ -21,8 +21,8 @@ public final class Constants {
     public static final int DRIVETRAIN_FRONT_LEFT_TALON = 3;
     public static final int DRIVETRAIN_REAR_LEFT_TALON = 4;
 
-    public static final int CLIMB_LEFT_VICTOR = 1;
-    public static final int CLIMB_RIGHT_VICTOR = 2;
+    public static final int CLIMB_EXTEND_VICTOR = 1;
+    public static final int CLIMB_RETRACT_VICTOR = 2;
 
     public static final int CONTROLPANEL_PCM_NODE = 0;
     public static final int CONTROLPANEL_MAIN_TALON = 1;
