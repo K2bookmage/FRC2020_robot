@@ -8,4 +8,12 @@ public class Turret extends SubsystemBase {
         talon = MotorFactory.makeTalonSPX(Constants.TURRET_TALON, "turret, talon");
     }
 
+    public void move(double speed){
+        talon.set(speed);
+    }
+
+    public int getPosition(){
+        return talon.getSelectedSensorPosition;
+    }
+
 }

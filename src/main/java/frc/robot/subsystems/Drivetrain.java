@@ -32,6 +32,34 @@ public class Drivetrain extends SubsystemBase {
     differentialDrive = new DifferentialDrive(leftGroup, rightGroup);
   }
 
+  public void arcadeDrive(double moveSpeed, double rotateSpeed){
+    rotateSpeed *= -1;
+    differentialDrive.arcadeDrive(moveSpeed, rotateSpeed);
+  }
+
+  public void setBrakeMode(){
+    frontLeftTalon.setNeutralMode(NeutralMode.Brake);
+    frontRightTalon.setNeutralMode(NeutralMode.Brake);
+    rearRightTalon.setNeutralMode(NeutralMode.Brake);
+    rearLeftTalon.setNeutralMode(NeutralMode.Brake);
+  }
+
+  public void setCoastMode(){
+    frontLeftTalon.setNeutralMode(NeutralMode.Coast);
+    frontRightTalon.setNeutralMode(NeutralMode.Coast);
+    rearRightTalon.setNeutralMode(NeutralMode.Coast);
+    rearLeftTalon.setNeutralMode(NeutralMode.Coast);
+  }
+
+  public int getLeftPosition(){
+    return frontLeftTalon.getSelectedSensorPosition;
+  }
+  public int getRightPosition(){
+    return -1*frontRightTalon.getSelectedSensorPosition;
+  }
+
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

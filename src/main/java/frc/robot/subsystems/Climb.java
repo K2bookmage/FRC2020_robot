@@ -10,6 +10,9 @@ public class Climb extends SubsystemBase {
 
     private final DifferentialDrive differentialDrive;
 
+    private final extend = 1;
+    private final retract = .6;
+
     public Climb() {
         rightVictor = MotorFactory.makeVictorSPX(Constants.CLIMB_RIGHT_VICTOR, "climb right victor");
         leftVictor = MotorFactory.makeVictorSPX(Constants.CLIMB_LEFT_VICTOR, "climb left victor");
@@ -17,6 +20,32 @@ public class Climb extends SubsystemBase {
         primaryGroup = new SpeedControllerGroup(rightVictor, leftVictor);
 
         differentialDrive = new DifferentialDrive(primaryGroup);
+    }
+
+    public extend(){
+        group.set(EXTEND_SPEED);
+    }
+
+    public extendReverse(){
+        group.set(-EXTEND_SPEED);
+    }
+
+    public retract(){
+        group.set(-RETRACT_SPEED);
+    }
+
+    public stop(){
+        group.set(0);
+    }
+
+    public setCoastMode(){
+        rightVictor.setNeutralMode(NeutralMode.Coast);
+        leftVictor.setNeutralMode(NeutralMode.Coast);
+    }
+
+    public setBrakeMode(){
+        rightVictor.setNeutralMode(NeutralMode.Brake);
+        leftVictor.setNeutralMode(NeutralMode.Brake);
     }
 
 }
