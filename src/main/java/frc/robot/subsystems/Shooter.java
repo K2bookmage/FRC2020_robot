@@ -6,11 +6,9 @@ public class Shooter extends SubsystemBase{
     private final WPI_TalonFX rightTalon;
     private final WPI_VictorSRX acceleratorVictor;
 
-    double shooterSpeed = ();
-
     Scanner scan = new Scanner(Scanner.in);
 
-    public shooterSpeed = 1;
+    public double shooterSpeed = 1;
 
     public Shooter(){
         leftTalon = MotorFactory.makeTalonFX(Constants.SHOOTER_LEFT_TALON, "shooter left talon");
