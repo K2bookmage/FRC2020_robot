@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -13,45 +6,73 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final Drivetrain drivetrain;
+  private final Intake intake;
+  private final Feeder feeder;
+  private final Shooter shooter;
+  private final Turret turret;
+  private final ControlPanel controlPanel;
+  private final Climb climb;
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-
-
-  /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
-   */
+  private final XboxController driverController;
+  private final XboxController auxController;
+  
   public RobotContainer() {
-    // Configure the button bindings
+    drivetrain = new Drivetrain();
+    intake = new Intake();
+    feeder = new Feeder();
+    shooter = new Shooter();
+    turret = new Turret();
+    controlpanel = new ControlPanel();
+    climb = new Climb();
+
+    driverController = new XboxController(Constants.DRIVE_CONTROLLER_PORT);
+    auxController = new XboxController(Constants.DRIVE_CONTROLLER_PORT);
+
     configureButtonBindings();
+
+    drivetrain.setDefaultCommand(new DriveCommand(drivetrain, driverController));
+    climb.setDefaultCommand(new ClimbCommand(climb, auxController));
+    // turret 
+    // intake
+
   }
 
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
+  /***
+ * Button names and Controller
+ * kA = X
+ * kB = A
+ * kX = B
+ * kY = Y
+ * kBumperLeft = left bumper
+ * kBumperRight = right bumper
+ * kBack = left trigger
+ * kStart = right trigger
+ * kStickLeft = back
+ * kStickRight = start
+ * Raw Axis 0 = Left Joystick X Axis
+ * Raw Axis 1 = Left Joystick Y Axis
+ * Raw Axis 2 = Right Joystick X Axis
+ * Raw Axis 3 = Right Joystick Y Axis
+ * 11 = left stick
+ * 12 = right stick 
+ */
   private void configureButtonBindings() {
+    //driver buttons
+    // new JoystickButton(drivercontroller, Button.kBack.value).whileHeld(new JustShoot(feeder, shooter));
+
+    new JoystickButton(driverController, Button.kA.value).whileHeld(new ClimbExtendForward(climb));
+
+    //aux buttons
+    new JoystickButton(auxController, Button.kBumperLeft.value).whenPressed(new IntakeExtend(intake));
+
   }
 
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+  
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
+
     return m_autoCommand;
   }
 }
