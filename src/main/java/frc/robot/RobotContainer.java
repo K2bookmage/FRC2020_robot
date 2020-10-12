@@ -63,9 +63,18 @@ public class RobotContainer {
     // new JoystickButton(drivercontroller, Button.kBack.value).whileHeld(new JustShoot(feeder, shooter));
 
     new JoystickButton(driverController, Button.kA.value).whileHeld(new ClimbExtendForward(climb));
+    new JoystickButton(driverController, Button.kB.value).whileHeld(new ClimbReverse(extendReverse));
+    new JoystickButton(driverController, Button.kX.value).whileHeld(new ClimbRetract(retract));
 
     //aux buttons
     new JoystickButton(auxController, Button.kBumperLeft.value).whenPressed(new IntakeExtend(intake));
+    new JoystickButton(auxController, Button.kBack.value).whenPressed(new IntakeRetract(retract));
+    new JoystickButton(auxController, Button.kBumperRight.value).whenPressed(new ControlPanelExtend(extend));
+    new JoystickButton(auxController, Button.kStart.value).whenPressed(new ControlPanelRetract(retract));
+    new JoystickButton(auxController, Button.kB.value).whenHeld(new ControlPanelTurn(turn));
+    new JoystickButton(auxController, Button.kX.value).whenPressed(new ControlPanelStage1( //What goes here));
+    new JoystickButton(auxController, Button.kA.value).whenHeld(new FeederReverse(feederReverse));
+    new JoystickButton(auxController, Button.kY.value).whenPressed(new IntakeJiggle(//what goes here));
 
   }
 

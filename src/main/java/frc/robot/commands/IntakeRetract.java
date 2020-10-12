@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class IntakeRetract extends CommandBase {
  
-  private final IntakeRetract intakeRetract;
+  private final Intake intake;
 
   public IntakeRetract(Intake intake) {
     this.intake = intake;
@@ -16,7 +16,6 @@ public class IntakeRetract extends CommandBase {
   @Override
   public void initialize() {
     intake.retract();
-    intake.off();
   }
 
  
@@ -26,6 +25,7 @@ public class IntakeRetract extends CommandBase {
 
   
   public void end(boolean interrupted) {
+    intake.off();
   }
 
   

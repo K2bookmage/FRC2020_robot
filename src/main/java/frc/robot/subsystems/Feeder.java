@@ -11,7 +11,7 @@ public class Feeder extends SubsystemBase{
 
     private final SpeedControllerGroup mainGroup;
 
-    private final DiufferentialDrive differentialDrive;
+    private boolean isFeederOn;
 
     public Feeder(){
         leftVictor = MotorFactory.makeVictorSPX(Constants.FEEDER_LEFT_VICTOR, "feeder left victor");
@@ -19,7 +19,6 @@ public class Feeder extends SubsystemBase{
         triggerVictor = MotorFactory.makeVictorySPX(Constatns.FEEDER_TRIGGER_VICTOR, "feeder trigger victor");
 
         mainGroup = new SpeedControllerGroup(leftVictor, rightVictor);
-        differentialDrive = new DifferentialDrive(mainGroup);
 }
 
 public void allOn(){
@@ -33,11 +32,17 @@ public void allOff(){
 }
 
 public void feederOn(){
-    group.set(FEEDER_SPEED);
+    if(!isFeederOn){
+        group.set(FEEDER_SPEED);
+        isFeederOn = true;
+    }
 }
 
 public void feederOff(){
-    group.set(0);
+    if(isFeederOn){
+        group.set(0);
+        isFeederOn = false;
+    }
 }
 
 public void feederReverse(){
@@ -54,6 +59,10 @@ public void triggerOn(){
 
 public void triggerOff(){
     trigger.set(0);
+}
+
+public boolean isFeederOn(){
+    return isFeederOn;
 }
 
 }

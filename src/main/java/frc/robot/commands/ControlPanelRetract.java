@@ -4,13 +4,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ControlPanelRetract extends CommandBase {
 
-  public ControlPanelRetract() {
-   
+  private final ControlPanel controlPanel;
+
+  public ControlPanelRetract(ControlPanel controlPanel) {
+    this.controlPanel = controlPanel;
+    addRequirements(controlPanel);
   }
 
 
   @Override
   public void initialize() {
+    controlPanel.retract();
   }
 
 
@@ -26,6 +30,6 @@ public class ControlPanelRetract extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

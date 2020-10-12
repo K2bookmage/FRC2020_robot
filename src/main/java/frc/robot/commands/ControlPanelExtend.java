@@ -13,12 +13,13 @@ public class ControlPanelExtend extends CommandBase {
 
   @Override
   public void initialize() {
+    controlPanel.extend();
   }
 
  
   @Override
   public void execute() {
-    controlPanel.extend();
+    
   }
 
 
@@ -30,6 +31,6 @@ public class ControlPanelExtend extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

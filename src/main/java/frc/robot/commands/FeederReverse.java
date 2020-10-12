@@ -3,7 +3,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class FeederReverse extends CommandBase {
-  private final FeederReverse feederReverse;
+ 
+  private final Feeder feeder;
 
   public FeederReverse(Feeder feeder) {
    this.feeder = feeder;
@@ -23,6 +24,7 @@ public class FeederReverse extends CommandBase {
  
   @Override
   public void end(boolean interrupted) {
+    feeder.off();
   }
 
  

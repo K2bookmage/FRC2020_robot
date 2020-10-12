@@ -4,7 +4,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class IntakeJiggle extends CommandBase {
-  private final IntakeJiggle intakeJiggle;
+ 
+  private final Intake intake;
+  private final Feeder feeder;
+  private long endTime;
 
   public IntakeJiggle(Intake intake, Feeder feeder) {
     this.intake = intake;
@@ -15,21 +18,30 @@ public class IntakeJiggle extends CommandBase {
 
   @Override
   public void initialize() {
+    endTime = System.currentTimeMillis() + 1000;
+    intake.extend();
   }
 
 
   @Override
   public void execute() {
+    feeder.reverse();
   }
 
 
   @Override
   public void end(boolean interrupted) {
+    intake.retract();
+    if(feeder.isFeederOn()){
+      feeder.on();
+    }else{
+      feeder.off();
+    }
   }
 
 
   @Override
   public boolean isFinished() {
-    return false;
+    return System.currentTimeMillis() > endTime;
   }
 }

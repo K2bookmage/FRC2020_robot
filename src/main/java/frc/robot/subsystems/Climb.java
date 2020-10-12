@@ -9,7 +9,7 @@ public class Climb extends SubsystemBase {
     private final double EXTEND_SPEED = 1;
     private final double RETRACT_SPEED = .6;
 
-    public Climb() {
+    public climb() {
         extendVictor = MotorFactory.makeVictorSPX(Constants.CLIMB_RIGHT_VICTOR, "climb right victor");
         retractVictor = MotorFactory.makeVictorSPX(Constants.CLIMB_LEFT_VICTOR, "climb left victor");
     }
