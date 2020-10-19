@@ -34,8 +34,8 @@ public class RobotContainer {
 
     drivetrain.setDefaultCommand(new DriveCommand(drivetrain, driverController));
     climb.setDefaultCommand(new ClimbCommand(climb, auxController));
-    // turret 
-    // intake
+    turret.setDefaultCommand(new TurretCommand(turret, auxController));
+    intake.setDefaultCommand(new IntakeCommand(feeder, intake, auxController));
 
   }
 
@@ -72,9 +72,9 @@ public class RobotContainer {
     new JoystickButton(auxController, Button.kBumperRight.value).whenPressed(new ControlPanelExtend(extend));
     new JoystickButton(auxController, Button.kStart.value).whenPressed(new ControlPanelRetract(retract));
     new JoystickButton(auxController, Button.kB.value).whenHeld(new ControlPanelTurn(turn));
-    new JoystickButton(auxController, Button.kX.value).whenPressed(new ControlPanelStage1( //What goes here));
+    new JoystickButton(auxController, Button.kX.value).whenPressed(new ControlPanelStage1(controlPanel));
     new JoystickButton(auxController, Button.kA.value).whenHeld(new FeederReverse(feederReverse));
-    new JoystickButton(auxController, Button.kY.value).whenPressed(new IntakeJiggle(//what goes here));
+    new JoystickButton(auxController, Button.kY.value).whenPressed(new IntakeJiggle(intake, feeder));
 
   }
 
@@ -84,4 +84,21 @@ public class RobotContainer {
 
     return m_autoCommand;
   }
+
+  public void setCoastMode(){
+    drivetrain.setCoastMode();
+    climb.setCoastMode();
+  }
+  public void setBrakeMode(){
+    drivetrain.setBrakeMode();
+    climb.setBrakeMode();
+  }
+  public void retractIntake(){
+    intake.retract();
+    intake.off();
+  }
+  public void climbOff(){
+    climb.stop();
+  }
+
 }
