@@ -100,5 +100,15 @@ public class RobotContainer {
   public void climbOff(){
     climb.stop();
   }
+  //TO DO
+  public void updateShooterSpeed(){
+
+  }
+  public void visionOff(){
+    vision.turnOffCamLeds();
+  }
+  public void visionOn(){
+    vision.turnOnCamLeds();
+  }
 
 }
