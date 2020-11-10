@@ -6,7 +6,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class RobotContainer {
+  public class RobotContainer {
   private final Drivetrain drivetrain;
   private final Intake intake;
   private final Feeder feeder;
@@ -17,6 +17,9 @@ public class RobotContainer {
 
   private final XboxController driverController;
   private final XboxController auxController;
+
+  SendableChooser<Command> autoChooser = new SendableChooser<Command>();
+  SendableChooser<Double> speedChooser = new SendableChooser<Double>();
   
   public RobotContainer() {
     drivetrain = new Drivetrain();
@@ -37,6 +40,15 @@ public class RobotContainer {
     turret.setDefaultCommand(new TurretCommand(turret, auxController));
     intake.setDefaultCommand(new IntakeCommand(feeder, intake, auxController));
 
+    speedChooser.addOption("0.6", 0.6);
+    speedChooser.addOption("0.7", 0.7);
+    speedChooser.addDefault("0.8", 0.8);
+    speedChooser.addOption("0.9", 0.9);
+    speedChooser.addOption("1.0", 1.0);
+    SmartDashboard.putData("Shooter Speed", speedChooser);
+    autoChooser.addOption("DoubleShoot", new DoubleShoot(vision, shooter, turret, feeder, drivetrain, intake));
+    autoChooser.addOption("SingleShoot", new SingleShoot(vision, shooter, turret, feeder, drivetrain, intake));
+    SmartDashboard.putData("Autonomous", autoChooser);
   }
 
   /***
@@ -81,8 +93,11 @@ public class RobotContainer {
 
   
   public Command getAutonomousCommand() {
-
-    return m_autoCommand;
+    Command cmd = autoChooser.getSelected();
+    if(cmd == null){
+      return new SingleShoot(vision, shooter, turret, feeder, drivetrain, intake);
+    }
+    return cmd;
   }
 
   public void setCoastMode(){
